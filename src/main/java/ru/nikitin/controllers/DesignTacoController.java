@@ -4,12 +4,14 @@ package ru.nikitin.controllers;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import ru.nikitin.Ingredient;
 import ru.nikitin.Ingredient.Type;
 import ru.nikitin.Taco;
 import ru.nikitin.TacoOrder;
 
+import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -54,7 +56,18 @@ public class DesignTacoController {
     return "design";
     }
     @PostMapping
-    public String processTaco(Taco taco, @ModelAttribute TacoOrder tacoOrder){
+    public String processTaco(@Valid Taco taco, Errors errors, @ModelAttribute TacoOrder tacoOrder){ //с проверкой на валидность
+    /* Аннотация @Valid требует выполнить проверку отправленного
+    объекта Taco после его привязки к данным в отправленной форме, но
+    до начала выполнения тела метода processTaco(). Если обнаружатся
+    какие-либо ошибки, то сведения о них будут зафиксированы в объекте Errors, который передается в processTaco(). Первые несколько
+    строк в processTaco() проверяют наличие ошибок, вызывая метод
+    hasErrors() объекта Errors. Если ошибки есть, то метод processTaco()
+    завершает работу без обработки Taco и возвращает имя представления "design", чтобы повторно отобразить форму.
+    */
+    if(errors.hasErrors()){
+        return "design";
+    }
     tacoOrder.addTaco(taco);
     log.info("Processing taco: {}", taco);
     return "redirect:/orders/current";
