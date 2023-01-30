@@ -1,5 +1,7 @@
 package ru.nikitin.repository;
 
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.Repository;
 import ru.nikitin.entity.Ingredient;
 
 import java.util.Optional;
@@ -10,7 +12,7 @@ import java.util.Optional;
  получение одного ингредиента по идентификатору;
  сохранение объекта Ingredient.
  */
-public interface IngredientRepository {
+public interface IngredientRepository extends CrudRepository<Ingredient, String> {
     Iterable<Ingredient> findAll();
     Optional<Ingredient> findById(String id);
     Ingredient save(Ingredient ingredient);

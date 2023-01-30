@@ -1,8 +1,8 @@
 package ru.nikitin.data;
-
-import lombok.Data;
-
-@Data
-public class IngredientRef {
-    private final String ingredient;
-}
+//
+//import lombok.Data;
+//
+//@Data
+//public class IngredientRef {
+//    private final String ingredient;
+//}
