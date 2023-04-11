@@ -1,4 +1,4 @@
-package ru.nikitin;
+package ru.nikitin.entity;
 
 import lombok.Data;
 
